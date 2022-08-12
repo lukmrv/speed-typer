@@ -1,0 +1,10 @@
+@import "@styles/index.scss";
+
+.footer {
+	display: flex;
+	justify-content: space-between;
+
+	padding: 20px 0;
+
+	color: $text-secondary-color;
+}

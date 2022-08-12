@@ -1,0 +1,81 @@
+@import "@styles/index.scss";
+
+.text-box {
+	overflow: hidden;
+	max-height: calc(36px * 3);
+	position: relative;
+
+	color: $text-secondary-color;
+	font-size: 1.5rem;
+
+	display: flex;
+	flex-wrap: wrap;
+	column-gap: 1rem;
+
+	align-items: flex-start;
+}
+
+.textbox-wrapper {
+	padding-left: 50px;
+	padding-right: 50px;
+	margin-bottom: 1.5rem;
+}
+.textbox-wrapper--hidden {
+	display: none;
+}
+
+.text-box.text--full {
+	max-height: 1000px;
+	transition: height 1s ease-in-out;
+}
+
+.word {
+	opacity: 1;
+	position: relative;
+}
+.word.word--finished {
+	opacity: 0.85;
+	transition: opacity 1.5s ease-in;
+}
+.word--incorrect {
+	text-decoration: underline;
+	text-decoration-color: $text-incorrect;
+}
+
+.caret {
+	height: 36px;
+	width: 14.41px;
+	opacity: 0.36;
+	position: absolute;
+	background-color: $background-secondary-color;
+	/* transition: all ease-in 0.05s; */
+}
+
+.character {
+	&--correct {
+		color: $text-correct;
+	}
+	&--incorrect {
+		color: $text-incorrect;
+	}
+	&--appended {
+		color: $text-appended;
+
+		text-decoration: line-through !important;
+	}
+}
+
+.blink {
+	animation: blink-animation 1s steps(3, start) infinite;
+	-webkit-animation: blink-animation 1s steps(3, start) infinite;
+}
+@keyframes blink-animation {
+	to {
+		visibility: hidden;
+	}
+}
+@-webkit-keyframes blink-animation {
+	to {
+		visibility: hidden;
+	}
+}

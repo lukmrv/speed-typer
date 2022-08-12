@@ -1,0 +1,23 @@
+@import "@styles/index.scss";
+
+/* color themes for buttons */
+.color-theme,
+.color-accent,
+.color-main {
+	opacity: 0.5;
+	color: $text-dark;
+
+	background-color: $background-secondary-color;
+
+	&:hover {
+		opacity: 1;
+	}
+	&:active {
+		color: $text-primary-color;
+		background-color: $background-light;
+	}
+	&:focus {
+		color: $text-primary-color;
+		background-color: $background-light;
+	}
+}
