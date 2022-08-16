@@ -128,18 +128,22 @@ const Results = (props: PropsType) => {
 
 			<div className="flex justify-center gap-10 mt-12">
 				<Tooltip label="play again">
-					<FontAwesomeIcon
-						className="max-h-6 cursor-pointer opacity-40 hover:opacity-100 transition-all"
-						icon={faRotateForward}
-						onClick={() => restartGame()}
-					/>
+					<button>
+						<FontAwesomeIcon
+							className="max-h-6 cursor-pointer opacity-40 hover:opacity-100 transition-all"
+							icon={faRotateForward}
+							onClick={() => restartGame()}
+						/>
+					</button>
 				</Tooltip>
 				<Tooltip label="show text ">
-					<FontAwesomeIcon
-						className="max-h-6 cursor-pointer opacity-40 hover:opacity-100 transition-all"
-						icon={faBookOpen}
-						onClick={() => setShowText((current) => !current)}
-					/>
+					<button>
+						<FontAwesomeIcon
+							className="max-h-6 cursor-pointer opacity-40 hover:opacity-100 transition-all"
+							icon={faBookOpen}
+							onClick={() => setShowText((current) => !current)}
+						/>
+					</button>
 				</Tooltip>
 			</div>
 		</div>

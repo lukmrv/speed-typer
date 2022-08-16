@@ -1,28 +1,30 @@
-type User = string;
+type GameStatusTypes = "landed" | "ongoing" | "finished";
 
-export interface Results {
+type CalculatedResultsType = {
+	incorrectWords: number;
+	incorrectCharacters: number;
+	appendedCharacters: number;
+	missedCharacters: number;
+	accuracy: number;
+	seconds: number;
 	CPM: number;
 	WPM: number;
-	time: number;
-}
-
-export const createUser = async (user_id: User) => {
-	const response = await fetch(`/api/create_user`, {
-		method: "POST",
-		body: user_id,
-	});
-
-	if (!response.ok) {
-		throw new Error(response.statusText);
-	}
-
-	return await response.json();
+	totalTextLength: number;
+	correctCharacters: number;
 };
 
-export const createResult = async (user_id: string, results: Results) => {
-	const response = await fetch(`/api/${user_id}`, {
+export type ResultsStateType = {
+	timeStart: number;
+	timeStop: number;
+	errorsTimestsmps: number[];
+	gameStatus?: GameStatusTypes;
+	calculatedResults: CalculatedResultsType;
+};
+
+export const createResult = async (result: ResultsStateType) => {
+	const response = await fetch(`/api/create_result`, {
 		method: "POST",
-		body: JSON.stringify({ results, user_id }),
+		body: JSON.stringify({ result }),
 	});
 
 	if (!response.ok) {

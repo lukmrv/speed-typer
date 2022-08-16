@@ -2,6 +2,10 @@ import { RefObject } from "react";
 
 import { calculateResults } from "@components/TextBox/calculateResults";
 import useStore from "@store/store";
+import { createResult } from "@services/fetchApiHelpers";
+import router from "next/router";
+
+import { getSession } from "next-auth/react";
 
 const MAX_NUMBER_OF_APPENDED_CHARACTERS = 10;
 
@@ -21,7 +25,10 @@ export const handleProgress = (
 		wordsArray,
 		typedWordsHistoryArray,
 		currentWord,
+		timeStop,
+		timeStart,
 		errorsTimestsmps,
+		calculatedResults,
 	} = useStore.getState();
 
 	const unsubscribeStoreListener = useStore.subscribe(
@@ -174,14 +181,34 @@ export const handleProgress = (
 	const isFinishNatural = wordsArray.length - 1 === typedWordsHistoryArray.length;
 
 	if (isFinishedForced) {
+		const timeStop = performance.now();
+		const calculatedResults = calculateResults(timeStop, [
+			...typedWordsHistoryArray,
+			typedFromCurrentWord,
+		]);
+
 		useStore.setState({
-			timeStop: performance.now(),
+			timeStop,
 			gameStatus: "finished",
 			typedWordsHistoryArray: [...typedWordsHistoryArray, typedFromCurrentWord],
-			calculatedResults: calculateResults(performance.now(), [
-				...typedWordsHistoryArray,
-				typedFromCurrentWord,
-			]),
+			calculatedResults,
+		});
+
+		getSession().then((sessionData) => {
+			createResult({
+				timeStop,
+				timeStart,
+				errorsTimestsmps,
+				calculatedResults,
+			})
+				.then((response) => {
+					if (response?.success) {
+						console.log("all good, result written");
+					}
+				})
+				.catch((error) => {
+					alert(error.message);
+				});
 		});
 	}
 	if (isFinishNatural) {

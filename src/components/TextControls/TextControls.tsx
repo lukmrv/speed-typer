@@ -22,7 +22,6 @@ const TextControls = () => {
 
 	return (
 		<div className="flex items-center gap-4">
-			<div>Phrase length:</div>
 			<div className="flex gap-2">
 				{textLengthOptions.map((textLengthOption) => (
 					<button
