@@ -30,7 +30,7 @@ const Results = (props: PropsType) => {
 	};
 
 	return (
-		<div className={classNames(resultsStyles["results-box"], "mb-8")}>
+		<div className={classNames(resultsStyles.resultsBox, "mb-8")}>
 			<div className="flex w-full justify-center gap-10">
 				<div className="flex flex-col gap-8 items-end">
 					<div className="flex flex-col">

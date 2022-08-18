@@ -21,7 +21,7 @@
 			"@components/*": ["src/components/*"],
 			"@hooks/*": ["src/hooks/*"],
 			"@utils/*": ["src/utils/*"],
-			"@services/*": ["src/services/*"],
+			"@helpers/*": ["src/helpers/*"],
 			"@store/*": ["src/store/*"],
 			"@pages/*": ["src/pages/*"],
 			"@modules/*": ["src/modules/*"],

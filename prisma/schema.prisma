@@ -1,7 +1,6 @@
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
-  // shadowDatabaseUrl = env("SHADOW_DATABASE_URL") // Only needed when using a cloud provider that doesn't support the creation of new databases, like Heroku. Learn more: https://pris.ly/migrate-shadow
 }
 
 generator client {
@@ -58,9 +57,9 @@ model Result {
   id        String   @id @unique @default(cuid())
   createdAt DateTime @default(now())
   
-    timeStart Float
+  timeStart Float
 	timeStop Float
-	errorsTimestsmps Float[]
+	errorsTimestamps Float[]
 	calculatedResults Json
 
   User      User?    @relation(fields: [user_id], references: [id])

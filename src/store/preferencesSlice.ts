@@ -1,13 +1,7 @@
 import { StateCreator } from "zustand";
 
 import { LOCAL_STORAGE_TEXT_LENGTH } from "@components/TextControls/TextControls";
-
-export type PreferencesStateType = {
-	textLength: number;
-	colorTheme: string;
-
-	setTextLength: (payload: number) => void;
-};
+import { PreferencesStateType } from "types/preferencesTypes";
 
 const getTextLengthValue = () => {
 	const initialTextLength = 5;

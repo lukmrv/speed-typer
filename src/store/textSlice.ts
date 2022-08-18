@@ -1,20 +1,7 @@
 import { RefObject } from "react";
 import { StateCreator } from "zustand";
 import words from "@components/TextBox/words.json";
-
-import store from "@store/store";
-
-export type TextStateType = {
-	wordsArray: string[];
-	typedWordsHistoryArray: string[];
-
-	currentWord: string;
-	typedFromCurrentWord: string;
-
-	currentWordRef: RefObject<HTMLDivElement> | null;
-
-	setWordsArray: (payload: { textLength: number }) => void;
-};
+import { TextSliceType } from "types/textTypes";
 
 const initialTextState = {
 	wordsArray: [],
@@ -28,7 +15,7 @@ const initialTextState = {
 	setWordsArray: () => {},
 };
 
-export const createTextSlice: StateCreator<TextStateType> = (set) => ({
+export const createTextSlice: StateCreator<TextSliceType> = (set) => ({
 	...initialTextState,
 
 	setWordsArray: (payload) => {

@@ -8,8 +8,8 @@ import { getSession, signIn, signOut, useSession } from "next-auth/react";
 import useStore from "@store/store";
 import TextBox from "@components/TextBox/TextBox";
 import Results from "@components/Results/Results";
-import Header from "@modules/Header/Header";
-import Footer from "@modules/Footer/Footer";
+import Header from "@components/Header/Header";
+import Footer from "@components/Footer/Footer";
 import Link from "next/link";
 
 export type PropsType = {

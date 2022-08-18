@@ -1,11 +1,10 @@
 import { RefObject } from "react";
+import { getSession } from "next-auth/react";
 
 import { calculateResults } from "@components/TextBox/calculateResults";
 import useStore from "@store/store";
-import { createResult } from "@services/fetchApiHelpers";
-import router from "next/router";
-
-import { getSession } from "next-auth/react";
+import { createResult } from "@helpers/fetchApiHelpers";
+import { CalculatedResultsType } from "types/resultsTypes";
 
 const MAX_NUMBER_OF_APPENDED_CHARACTERS = 10;
 
@@ -25,10 +24,8 @@ export const handleProgress = (
 		wordsArray,
 		typedWordsHistoryArray,
 		currentWord,
-		timeStop,
 		timeStart,
-		errorsTimestsmps,
-		calculatedResults,
+		errorsTimestamps,
 	} = useStore.getState();
 
 	const unsubscribeStoreListener = useStore.subscribe(
@@ -38,7 +35,7 @@ export const handleProgress = (
 				wordsArray,
 				typedWordsHistoryArray,
 				currentWord,
-				errorsTimestsmps,
+				errorsTimestamps,
 			} = currentStoreValue)
 	);
 
@@ -90,7 +87,7 @@ export const handleProgress = (
 		if (!isSpace && !isBackspace) {
 			// console.log("incorrect", "-------");
 			useStore.setState({
-				errorsTimestsmps: [...errorsTimestsmps, performance.now()],
+				errorsTimestamps: [...errorsTimestamps, performance.now()],
 			});
 		}
 
@@ -194,36 +191,63 @@ export const handleProgress = (
 			calculatedResults,
 		});
 
-		getSession().then((sessionData) => {
-			createResult({
-				timeStop,
-				timeStart,
-				errorsTimestsmps,
-				calculatedResults,
-			})
-				.then((response) => {
-					if (response?.success) {
-						console.log("all good, result written");
-					}
-				})
-				.catch((error) => {
-					alert(error.message);
-				});
+		saveResults({
+			timeStop,
+			timeStart,
+			errorsTimestamps,
+			calculatedResults,
 		});
 	}
 	if (isFinishNatural) {
 		if (currentWord === typedFromCurrentWord) {
+			const timeStop = performance.now();
+			const calculatedResults = calculateResults(timeStop, [
+				...typedWordsHistoryArray,
+				typedFromCurrentWord,
+			]);
+
 			useStore.setState({
 				timeStop: performance.now(),
 				gameStatus: "finished",
 				typedWordsHistoryArray: [...typedWordsHistoryArray, typedFromCurrentWord],
-				calculatedResults: calculateResults(performance.now(), [
-					...typedWordsHistoryArray,
-					typedFromCurrentWord,
-				]),
+				calculatedResults,
+			});
+
+			saveResults({
+				timeStop,
+				timeStart,
+				errorsTimestamps,
+				calculatedResults,
 			});
 		}
 	}
 
 	unsubscribeStoreListener();
+};
+
+const saveResults = async ({
+	timeStop,
+	timeStart,
+	errorsTimestamps,
+	calculatedResults,
+}: {
+	timeStop: number;
+	timeStart: number;
+	errorsTimestamps: number[];
+	calculatedResults: CalculatedResultsType;
+}) => {
+	const session = await getSession();
+
+	if (!session) return;
+
+	try {
+		createResult({
+			timeStop,
+			timeStart,
+			errorsTimestamps,
+			calculatedResults,
+		});
+	} catch (error: any) {
+		alert(error.message);
+	}
 };

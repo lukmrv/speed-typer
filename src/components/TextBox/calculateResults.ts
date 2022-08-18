@@ -15,7 +15,7 @@ const calculateCPM = (timeOne: number, timeTwo: number, length: number): number 
 };
 
 export const calculateResults = (timeStop: number, wordsHistory: string[]) => {
-	let { timeStart, wordsArray, errorsTimestsmps } = useStore.getState();
+	let { timeStart, wordsArray, errorsTimestamps } = useStore.getState();
 
 	const totalTextLength = wordsArray.reduce((acc, element) => (acc += element.length), 0);
 
@@ -73,7 +73,7 @@ export const calculateResults = (timeStop: number, wordsHistory: string[]) => {
 		incorrectNumberByTypes?.missedCharacters;
 
 	const accuracy = Math.floor(
-		((correctCharacters - errorsTimestsmps.length) / totalTextLength) * 100
+		((correctCharacters - errorsTimestamps.length) / totalTextLength) * 100
 	);
 
 	return {

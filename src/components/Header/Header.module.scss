@@ -1,16 +1,19 @@
 @import "@styles/index.scss";
 
 .header {
+	width: 100%;
 	display: flex;
 	justify-content: space-between;
 
 	color: $text-secondary-color;
 
-	padding: 20px 0;
+	padding: 20px;
 }
 
 .logo {
-	font-size: 1.5rem;
+	display: flex;
+	align-items: center;
+
 	color: $text-secondary-color;
 }
 
@@ -21,13 +24,16 @@
 //    //    //    //    //    //    //    //
 /* Set min-height to avoid page reflow while session loading */
 .signedInStatus {
-	display: block;
+	display: flex;
 	min-height: 4rem;
-	width: 100%;
 }
 
 .loading,
 .loaded {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+
 	position: relative;
 	top: 0;
 	opacity: 1;
@@ -54,6 +60,7 @@
 	text-overflow: ellipsis;
 	overflow: hidden;
 	display: inherit;
+	vertical-align: middle;
 	z-index: 1;
 	line-height: 1.3rem;
 }
@@ -68,7 +75,7 @@
 	float: left;
 	height: 2.8rem;
 	width: 2.8rem;
-	background-color: white;
+	// background-color: white;
 	background-size: cover;
 	background-repeat: no-repeat;
 }
@@ -86,13 +93,13 @@
 	position: relative;
 	z-index: 10;
 	background-color: transparent;
-	color: #555;
+	// color: #555;
 }
 
 .buttonPrimary {
-	background-color: #346df1;
-	border-color: #346df1;
-	color: #fff;
+	// background-color: #346df1;
+	// border-color: #346df1;
+	// color: #fff;
 	text-decoration: none;
 	padding: 0.7rem 1.4rem;
 }
