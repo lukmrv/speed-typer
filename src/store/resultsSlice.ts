@@ -1,30 +1,5 @@
+import { GameStatusTypes, ResultsSliceType } from "types/resultsTypes";
 import { StateCreator } from "zustand";
-
-type GameStatusTypes = "landed" | "ongoing" | "finished";
-
-type CalculatedResultsType = {
-	incorrectWords: number;
-	incorrectCharacters: number;
-	appendedCharacters: number;
-	missedCharacters: number;
-	accuracy: number;
-	seconds: number;
-	CPM: number;
-	WPM: number;
-	totalTextLength: number;
-	correctCharacters: number;
-};
-
-export type ResultsStateType = {
-	timeStart: number;
-	timeStop: number;
-	errorsTimestsmps: number[];
-	gameStatus: GameStatusTypes;
-	calculatedResults: CalculatedResultsType;
-
-	setGameStatus: (payload: GameStatusTypes) => void;
-	resetResults: () => void;
-};
 
 const initialCalculatedResults = {
 	incorrectWords: 0,
@@ -42,7 +17,7 @@ const initialCalculatedResults = {
 const initialResultsState = {
 	timeStart: 0,
 	timeStop: 0,
-	errorsTimestsmps: [],
+	errorsTimestamps: [],
 	gameStatus: "landed" as GameStatusTypes,
 	calculatedResults: initialCalculatedResults,
 
@@ -50,14 +25,14 @@ const initialResultsState = {
 	resetResults: () => {},
 };
 
-export const createResultsSlice: StateCreator<ResultsStateType> = (set) => ({
+export const createResultsSlice: StateCreator<ResultsSliceType> = (set) => ({
 	...initialResultsState,
 	setGameStatus: (payload) => set(() => ({ timeStart: 0, timeStop: 0, gameStatus: payload })),
 	resetResults: () =>
 		set(() => ({
 			timeStart: 0,
 			timeStop: 0,
-			errorsTimestsmps: [],
+			errorsTimestamps: [],
 			gameStatus: "landed",
 			calculatedResults: initialCalculatedResults,
 		})),

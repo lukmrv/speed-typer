@@ -11,7 +11,7 @@ type PropsTypes = {
 };
 
 const Button = React.forwardRef(
-	({ onClick, children, color, ...rest }: PropsTypes, ref?: React.Ref<HTMLButtonElement>) => {
+	({ onClick, children, color, ...rest }: PropsTypes, ref: React.Ref<HTMLButtonElement>) => {
 		return (
 			<button {...rest} ref={ref} onClick={onClick}>
 				{children}

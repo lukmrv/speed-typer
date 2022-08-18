@@ -22,12 +22,11 @@ const TextControls = () => {
 
 	return (
 		<div className="flex items-center gap-4">
-			<div>Phrase length:</div>
 			<div className="flex gap-2">
 				{textLengthOptions.map((textLengthOption) => (
 					<button
 						key={textLengthOption}
-						className={classNames(textControlsStyles["option"], {
+						className={classNames(textControlsStyles.option, {
 							"bg-slate-500 hover:bg-slate-400": textLength === textLengthOption,
 						})}
 						onClick={() => setAndSaveToLocalStorage(textLengthOption)}

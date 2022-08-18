@@ -1,10 +1,13 @@
 import create from "zustand";
 
-import { createResultsSlice, ResultsStateType } from "./resultsSlice";
-import { createTextSlice, TextStateType } from "./textSlice";
-import { createPreferencesSlice, PreferencesStateType } from "./preferencesSlice";
+import { createResultsSlice } from "./resultsSlice";
+import { createTextSlice } from "./textSlice";
+import { createPreferencesSlice } from "./preferencesSlice";
+import { TextSliceType } from "types/textTypes";
+import { ResultsSliceType } from "types/resultsTypes";
+import { PreferencesStateType } from "types/preferencesTypes";
 
-type StateType = ResultsStateType & TextStateType & PreferencesStateType;
+type StateType = ResultsSliceType & TextSliceType & PreferencesStateType;
 
 const useStore = create<StateType>((...set) => ({
 	...createResultsSlice(...set),

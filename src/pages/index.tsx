@@ -1,14 +1,16 @@
-import { Dispatch, SetStateAction, useState } from "react";
+import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import type { NextPage } from "next";
 import Head from "next/head";
-import { CSSTransition } from "react-transition-group";
 import classNames from "classnames";
+
+import { getSession, signIn, signOut, useSession } from "next-auth/react";
 
 import useStore from "@store/store";
 import TextBox from "@components/TextBox/TextBox";
 import Results from "@components/Results/Results";
-import Header from "@modules/Header/Header";
-import Footer from "@modules/Footer/Footer";
+import Header from "@components/Header/Header";
+import Footer from "@components/Footer/Footer";
+import Link from "next/link";
 
 export type PropsType = {
 	showText?: boolean;
@@ -22,6 +24,10 @@ const Home: NextPage = () => {
 	const { gameStatus } = useStore();
 	const [showText, setShowText] = useState(true);
 	const [isTextFullView, setIsTextFullView] = useState(false);
+
+	// const { data: status, session, clientId, clientString } = useSession();
+
+	// const loading = status === "loading";
 
 	return (
 		<>
